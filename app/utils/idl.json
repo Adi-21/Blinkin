@@ -1,0 +1,58 @@
+{
+  "version": "0.1.0",
+  "name": "call_program",
+  "instructions": [
+    {
+      "name": "initiateCall",
+      "accounts": [
+        { "name": "callData", "isMut": true, "isSigner": true },
+        { "name": "clock", "isMut": false, "isSigner": false },
+        { "name": "initiator", "isMut": true, "isSigner": true },
+        { "name": "systemProgram", "isMut": false, "isSigner": false }
+      ],
+      "args": [
+        { "name": "recipient", "type": "publicKey" },
+        { "name": "recipientTiplink", "type": "string" }
+      ]
+    },
+    {
+      "name": "respondCall",
+      "accounts": [
+        { "name": "callData", "isMut": true, "isSigner": false },
+        { "name": "recipient", "isMut": false, "isSigner": true }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "CallData",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "initiator", "type": "publicKey" },
+          { "name": "recipient", "type": "publicKey" },
+          { "name": "recipientTiplink", "type": "string" },
+          { "name": "responseStatus", "type": "bool" }
+        ]
+      }
+    }
+  ],
+  "events": [
+    {
+      "name": "CallInitiatedEvent",
+      "fields": [
+        { "name": "initiator", "type": "publicKey", "index": false },
+        { "name": "recipient", "type": "publicKey", "index": false },
+        { "name": "recipientTiplink", "type": "string", "index": false }
+      ]
+    },
+    {
+      "name": "CallRespondedEvent",
+      "fields": [
+        { "name": "initiator", "type": "publicKey", "index": false },
+        { "name": "recipient", "type": "publicKey", "index": false }
+      ]
+    }
+  ]
+}
